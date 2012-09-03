@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebApp>
+	<AppMap>
+		<item interceptorName="aaInterceptor" class="aaaa.test.action.AAInterceptor">拦截器1初始化</item>
+		<item interceptorName="aaInterceptor2" class="aaaa.test.action.AAInterceptor2">拦截器2初始化</item>
+	</AppMap>
+</WebApp>

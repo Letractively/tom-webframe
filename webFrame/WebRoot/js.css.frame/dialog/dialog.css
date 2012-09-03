@@ -1,0 +1,81 @@
+/*头边框*/
+.thread_border_lt {
+    background: url(images/dialog_lt.png) no-repeat
+}
+
+.thread_border_ct {
+    background: url(images/dialog_ct.png) no-repeat
+}
+
+.thread_border_ct_div {
+    float: left;
+    font-weight: bold;
+    color: #FFFFFF;
+    padding: 12px 0 0 3px;
+    font-size: 13px
+}
+
+.thread_border_rt {
+    background: url(images/dialog_rt.png) no-repeat
+}
+
+/*标题前面的图标*/
+.thread_border_title {
+    background: url("images/dialog_title.png") no-repeat;
+    float:left;
+    cursor: default;
+    width: 20px;
+    height: 20px;
+}
+
+/*关闭图标*/
+.thread_border_close {
+    position: relative;
+    cursor: pointer;
+    float: right;
+    margin: 10px -2px 0 0;
+    height: 20px;
+    width: 28px;
+    background: url("images/sprite_main_png.png") no-repeat scroll -119px -24px transparent;
+}
+
+.thread_border_close:hover {
+    background-position: -119px -53px;
+}
+
+/*中间的边框*/
+.tbody_boder_mrm{
+   background: url(images/dialog_mrm.png) no-repeat;
+}
+
+.tbody_boder_mlm{
+   background: url(images/dialog_mlm.png) no-repeat;
+}
+
+/*底部边框*/
+.tfoot_border_lb {
+    background: url(images/dialog_lb.png) no-repeat
+}
+
+.tfoot_border_cb {
+    background: url(images/dialog_cb.png) no-repeat
+}
+
+.tfoot_border_rb {
+    background: url(images/dialog_rb.png) no-repeat
+}
+
+.message_png {
+    margin: 13px;
+    float: left;
+    background: url(images/window.gif);
+    width: 32px;
+    height: 32px;
+}
+
+.message_div{
+    height:60px;
+    background:#EAECE9 url(images/dialog_bg.jpg) no-repeat right top;
+}
+
+

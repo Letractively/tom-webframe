@@ -1,0 +1,26 @@
+.suggest_menu{
+	border:1px solid #D9D9D9;border-top: 1px solid silver;
+	box-shadow: 3px 4px 8px #ccc;
+	background:#ffffff;
+	display:none;
+	list-style:none;
+    margin-top:0;
+    padding: 5px;
+    overflow:hidden;
+    position: absolute;
+}
+.suggest_menu .suggest_item{
+	padding: 0px; cursor:pointer;
+    line-height: 14px;
+    list-style: none outside none;
+    outline: 0 none;
+    text-align: left;
+    white-space: nowrap;
+    font-size: 13px
+}
+.suggest_menu .suggest_item:hover{
+	background:#cccccc;
+}
+.suggest_menu .selected{
+	background: #cccccc;
+}

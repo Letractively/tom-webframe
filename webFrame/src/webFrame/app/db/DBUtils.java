@@ -359,7 +359,7 @@ public class DBUtils {
 	}
 
 	public static int insertOrUpdateDB(Connection _conn, Object _obj, String _tableName, String _where) throws Exception {
-		String sql = "SELECT * FROM " + _tableName +" WHERE " + _where;
+		String sql = "SELECT 1 FROM " + _tableName +" WHERE " + _where;
 		ResultSet res= execSelect(_conn, sql);
 		if (!res.next()) {
 			return insertDB(_conn, _obj, _tableName);
@@ -407,12 +407,13 @@ public class DBUtils {
 			if (update.length() > 0) {
 				update = update + ", ";
 			}
-			String vcName = obj.getClass().getSimpleName();
-			if (vcName.equalsIgnoreCase("string")) {
+			if (obj instanceof String) {
 				update = update + key + " = '" + _map.get(key).toString().replaceAll("'", "''") + "'";
-			} else if (vcName.equalsIgnoreCase("date")) {
-				update = update + key + " = '" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(_map.get(key)) + "'";
-			} else {
+			}else if(obj instanceof Timestamp){
+                update = update + key + " = '" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(_map.get(key)) + "'";
+            }else if (obj instanceof Date) {
+				update = update + key + " = '" + new SimpleDateFormat("yyyy-MM-dd").format(_map.get(key)) + "'";
+			} else{
 				update = update + key + " = " + _map.get(key);
 			}
 		}
@@ -469,10 +470,12 @@ public class DBUtils {
 				value += ", ";
 			}
 			field += key;
-			if (obj instanceof String)
-				value = value + "'" + obj.toString().replaceAll("'", "''") + "'";
-			else if (obj instanceof Date)
-				value = value + "'" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(obj) + "'";
+			if (obj instanceof String){
+               value = value + "'" + obj.toString().replaceAll("'", "''") + "'";
+            }else if(obj instanceof Timestamp){
+                value = value + "'" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(obj) + "'";
+            }else if (obj instanceof Date)
+				value = value + "'" + new SimpleDateFormat("yyyy-MM-dd").format(obj) + "'";
 			else {
 				value = value + map.get(key);
 			}

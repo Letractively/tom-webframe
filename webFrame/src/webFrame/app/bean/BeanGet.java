@@ -1,6 +1,7 @@
 package webFrame.app.bean;
 
 import java.lang.reflect.Field;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -97,10 +98,13 @@ public final class BeanGet {
 					if (type == String.class) {
 						sUpdate = sUpdate + "\"" + fieldName + " = '\" + " + "target" + ".get" + typeName[0] + typeName[1] + "().replaceAll(\"'\", \"''\") + \"'\"";
 						sValue = sValue + "\"'\" + target.get" + typeName[0] + typeName[1] + "().replaceAll(\"'\", \"''\") + \"'\"";
-					} else if (type == Date.class) {
-						sUpdate = sUpdate + "\"" + fieldName + " = '\" + new java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\").format(" + "target" + ".get" + typeName[0] + typeName[1] + "()) + \"'\"";
+					} else if(type == Timestamp.class){
+                        sUpdate = sUpdate + "\"" + fieldName + " = '\" + new java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\").format(" + "target" + ".get" + typeName[0] + typeName[1] + "()) + \"'\"";
 						sValue = sValue + "\"'\" + new java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\").format(target.get" + typeName[0] + typeName[1] + "()) + \"'\"";
-					} else {
+                    }else if (type == Date.class) {
+						sUpdate = sUpdate + "\"" + fieldName + " = '\" + new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(" + "target" + ".get" + typeName[0] + typeName[1] + "()) + \"'\"";
+						sValue = sValue + "\"'\" + new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(target.get" + typeName[0] + typeName[1] + "()) + \"'\"";
+					} else{
 						sUpdate = sUpdate + "\"" + fieldName + " = \" + " + "target" + ".get" + typeName[0] + typeName[1] + "()";
 						sValue = sValue + "target.get" + typeName[0] + typeName[1] + "()";
 					}

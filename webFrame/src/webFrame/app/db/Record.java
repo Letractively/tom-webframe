@@ -2,6 +2,7 @@ package webFrame.app.db;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -74,10 +75,19 @@ public final class Record<K, V> implements Serializable {
       public Date getDate(K _key) {
         Date sDate = null;
         try {
-            sDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(get(_key)) ;  // java.sql.Date
+            sDate = new SimpleDateFormat("yyyy-MM-dd").parse(get(_key)) ;  // java.sql.Date
         } catch (Exception e) {
         }
         return sDate;
+    }
+
+    public Timestamp getTimestamp(K _key){
+         Date sDate = null;
+         try {
+            sDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(get(_key)) ;  // java.sql.Date
+        } catch (Exception e) {
+        }
+        return new Timestamp(sDate!=null ?sDate.getTime(): new Date().getTime());
     }
 
     public int size() {

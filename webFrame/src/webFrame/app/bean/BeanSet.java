@@ -1,6 +1,7 @@
 package webFrame.app.bean;
 
 import java.lang.reflect.Field;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -92,13 +93,15 @@ public final class BeanSet {
 					typeName[1] = col[0].toString().substring(2, col[0].toString().length());
 
 					sBuf.append("if (field.equals(\"" + typeName[1] + "\")) {\r\n");
-					if (type == Integer.TYPE)
+					if (type == Integer.TYPE){
 						sBuf.append("target.set" + typeName[0] + typeName[1] + "(rec.getInt(field));\r\n");
-					else if (type == Double.TYPE)
+                    }else if (type == Double.TYPE){
 						sBuf.append("target.set" + typeName[0] + typeName[1] + "(rec.getDouble(field));\r\n");
-					else if (type == Date.class)
+                    }else if (type == Timestamp.class){
+                        sBuf.append("target.set" + typeName[0] + typeName[1] + "(rec.getTimestamp(field));\r\n");
+                    }else if (type == Date.class){
 						sBuf.append("target.set" + typeName[0] + typeName[1] + "(rec.getDate(field));\r\n");
-					else {
+                    }else {
 						sBuf.append("target.set" + typeName[0] + typeName[1] + "(rec.get(field));\r\n");
 					}
 					sBuf.append("continue;\r\n");

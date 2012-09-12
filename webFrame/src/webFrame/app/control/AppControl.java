@@ -17,6 +17,10 @@ public abstract class AppControl<T> implements AppModel<T> {
 		return true;
 	}
 
+    public void afterControl(RequestContext resContext, Map<String, String> o,String methodName) {
+        
+    }
+
 	public String exec() throws Exception {
 		return null;
 	}

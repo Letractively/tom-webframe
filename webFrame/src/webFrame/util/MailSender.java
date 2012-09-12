@@ -12,7 +12,7 @@ import javax.mail.internet.*;
  * 简单邮件发送器(可多附件)
  */
 public class MailSender {
-
+    
 	public class MyAuthenticator extends Authenticator {
 		String userName;
 		String password;

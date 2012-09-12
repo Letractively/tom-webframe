@@ -27,24 +27,17 @@ public class Reflect {
         this.methodName = methodName;
     }
 
-    public AppControl<?> loadAction() throws Exception {
-        AppControl<?> control = null;
-        try {
-            Class<?> c = Class.forName(className);
-            control = (AppControl<?>) c.newInstance();
-        } catch (ClassNotFoundException e) {
-            Log.writeLog("App.loadAction" + e.toString());
-        } catch (Exception e) {
-            throw e;
-        }
-        return control;
-
-    }
 
     /*action通用处理,是继承,非拦截*/
     public boolean beforeControl(AppControl<?> control, Map<?, ?> map) throws Exception {
         Method m = control.getClass().getMethod("beforeControl", RequestContext.class, Map.class, String.class);
         return (Boolean) m.invoke(control, requestContext, map, methodName == null ? "exec" : methodName);
+    }
+    
+      /*action通用处理,是继承,非拦截*/
+    public void afterControl(AppControl<?> control, Map<?, ?> map) throws Exception {
+        Method m = control.getClass().getMethod("afterControl", RequestContext.class, Map.class, String.class);
+        m.invoke(control, requestContext, map, methodName == null ? "exec" : methodName);
     }
 
     /* 得到指定的方法 */
@@ -105,6 +98,7 @@ public class Reflect {
                 obj = paserMethodAnnotation(me, control, map);
             }
         }
+        afterControl(control, map);
         return obj;
 
     }
@@ -141,6 +135,8 @@ public class Reflect {
             } else {
                 throw new Exception("Reflect.paserMethodAnnotation: error return type,no inputStream found");
             }
+        } else {
+            
         }
 
         return obj;

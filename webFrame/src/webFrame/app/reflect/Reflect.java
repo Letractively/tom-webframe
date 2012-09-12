@@ -11,19 +11,16 @@ import webFrame.app.annotation.Annotation.*;
 import webFrame.app.control.AppControl;
 import webFrame.app.control.RequestContext;
 import webFrame.app.factory.AppFactory;
-import webFrame.report.Log;
 import webFrame.util.*;
 
 /**
  * 反射解析action,method,field,annotation
  */
 public class Reflect {
-    private String className = null;
     private String methodName = null;
     private RequestContext requestContext = RequestContext.get();
 
-    public Reflect(String className, String methodName) {
-        this.className = className;
+    public Reflect(String methodName) {
         this.methodName = methodName;
     }
 
@@ -88,7 +85,7 @@ public class Reflect {
         return ((AnnotatedElement) obj).getDeclaredAnnotations();
     }
 
-    public Object getRuturnType(Method me, AppControl<?> control, Map<?, ?> map) throws Exception {
+    public Object getRuturnType(Method me, AppControl<?> control, Map<String, String> map) throws Exception {
         Object obj = null;
         if (beforeControl(control, map)) { //预先处理
             Annotation[] anos = loadAnnotation(me);
@@ -112,12 +109,13 @@ public class Reflect {
      * @return
      * @throws Exception
      */
-    private Object paserMethodAnnotation(Method me, AppControl<?> control, Map<?, ?> map) throws Exception {
+    private Object paserMethodAnnotation(Method me, AppControl<?> control, Map<String, String> map) throws Exception {
         Object obj = invoke(me, control, map);
         if (me.isAnnotationPresent(JSONOutput.class)) {
         	requestContext.printJSONData(obj);
             obj = null;
-        } else if (me.isAnnotationPresent(InputstreamOutput.class)) {
+        }
+        if (me.isAnnotationPresent(InputstreamOutput.class)) {
             if (obj instanceof InputStream) {
                 InputstreamOutput stream_ano = me.getAnnotation(InputstreamOutput.class);
                 if (stream_ano.value() == ContentType.Image) { // 如果是读取图片就直接返回
@@ -135,12 +133,8 @@ public class Reflect {
             } else {
                 throw new Exception("Reflect.paserMethodAnnotation: error return type,no inputStream found");
             }
-        } else {
-        	obj = control.getEx().parseAnnnotation(obj, me);
         }
-
-        return obj;
-
+        return control.getEx().parseAnnnotation(obj, me, map);
     }
 
     /**

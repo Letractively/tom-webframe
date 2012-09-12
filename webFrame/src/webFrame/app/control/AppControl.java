@@ -44,7 +44,7 @@ public abstract class AppControl<T> implements AppModel<T> {
 		return new RefExtend() {
 			
 			@Override
-			public Object parseAnnnotation(Object obj, Method me) {
+			public Object parseAnnnotation(Object obj, Method me, Map<String, String> map) {
 				return obj;
 			}
 		};

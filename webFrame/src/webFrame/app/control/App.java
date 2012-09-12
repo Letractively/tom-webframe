@@ -28,7 +28,7 @@ public class App implements webFrame.app.interceptor.App {
 			String page = null;
 			Reflect reflect = new Reflect(className, methodName);
 			if (suffix.equalsIgnoreCase("do")) {
-				AppControl<?> control = reflect.loadAction();
+				AppControl<?> control = actionInvocation.loadAction();
 				reflect.paserFieldAnotation(control); //对属性annotation进行解析
 				Method me = reflect.loadMethod(control.getClass()); //得到所有的方法
 				page = (String) reflect.getRuturnType(me, control, map); //得到方法的返回值

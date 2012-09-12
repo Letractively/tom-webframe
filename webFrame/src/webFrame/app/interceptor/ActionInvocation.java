@@ -1,7 +1,9 @@
 package webFrame.app.interceptor;
 
+import webFrame.app.control.AppControl;
 import webFrame.app.control.RequestContext;
 import webFrame.app.listener.Variable;
+import webFrame.report.Log;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -23,6 +25,20 @@ public class ActionInvocation implements Serializable{
         this.className = className;
         this.methodName = methodName;
         this.suffix = suffix;
+    }
+
+    public AppControl<?> loadAction() throws Exception {
+        AppControl<?> control = null;
+        try {
+            Class<?> c = Class.forName(className);
+            control = (AppControl<?>) c.newInstance();
+        } catch (ClassNotFoundException e) {
+            Log.writeLog("App.loadAction" + e.toString());
+        } catch (Exception e) {
+            throw e;
+        }
+        return control;
+
     }
 
     public String getClassName() {

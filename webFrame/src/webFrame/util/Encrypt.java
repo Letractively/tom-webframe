@@ -144,13 +144,13 @@ public final class Encrypt {
 	}
 	
 	
-	/*public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
 		System.out.println( MD5EncryptWithBASE64Encoder("666666"));
 		System.out.println(DESEncrypt("666666")); //每次加密密码都不一样,
 		System.out.println(DESDecrypt("wSrQe/TbOYrvbYwCvD7VUg==")); //但是解密的解码都是
 		System.out.println(DESDecrypt("pHUQlqeQRJc9LKGXyhlueg==")); //但是解密的解码都是
 		System.out.println(decryptString(ENCRY_STYLE_DES ,"sHwNbepsw3B6cDIkrFImeg==")); //但是解密的解码都是
-	}*/
+	}
 }
 
 

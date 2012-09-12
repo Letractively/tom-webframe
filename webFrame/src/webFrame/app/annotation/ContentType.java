@@ -53,7 +53,7 @@ public enum ContentType {
 	};
 
 	public String fileName = "downFile";
-	
+
 	public String encode = Variable.encoding;
 
 	public abstract String getContentType();

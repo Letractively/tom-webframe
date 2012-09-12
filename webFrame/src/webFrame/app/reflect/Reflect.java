@@ -136,7 +136,7 @@ public class Reflect {
                 throw new Exception("Reflect.paserMethodAnnotation: error return type,no inputStream found");
             }
         } else {
-            
+        	obj = control.getEx().parseAnnnotation(obj, me);
         }
 
         return obj;

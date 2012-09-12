@@ -1,11 +1,13 @@
 package webFrame.app.control;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import webFrame.app.reflect.RefExtend;
 import webFrame.report.Log;
 
 public abstract class AppControl<T> implements AppModel<T> {
@@ -13,6 +15,7 @@ public abstract class AppControl<T> implements AppModel<T> {
 	public AppControl() {
 	}
 
+	/*控制器前后的方法*/
 	public boolean beforeControl(RequestContext resContext, Map<String, String> o,String methodName) {
 		return true;
 	}
@@ -20,7 +23,8 @@ public abstract class AppControl<T> implements AppModel<T> {
     public void afterControl(RequestContext resContext, Map<String, String> o,String methodName) {
         
     }
-
+    
+    /*action执行的方法*/
 	public String exec() throws Exception {
 		return null;
 	}
@@ -34,6 +38,19 @@ public abstract class AppControl<T> implements AppModel<T> {
 	public String exec(HttpServletRequest req, HttpServletResponse res, T t) throws Exception {
 		return null;
 	}
+	
+	
+	public RefExtend getEx(){
+		return new RefExtend() {
+			
+			@Override
+			public Object parseAnnnotation(Object obj, Method me) {
+				return obj;
+			}
+		};
+	}
+	
+	
 
 	@SuppressWarnings("unchecked")
 	@Override

@@ -26,7 +26,7 @@ public class App implements webFrame.app.interceptor.App {
             
 			Map<String, String> map =  actionInvocation.getParaMap();
 			String page = null;
-			Reflect reflect = new Reflect(className, methodName);
+			Reflect reflect = new Reflect(methodName);
 			if (suffix.equalsIgnoreCase("do")) {
 				AppControl<?> control = actionInvocation.loadAction();
 				reflect.paserFieldAnotation(control); //对属性annotation进行解析

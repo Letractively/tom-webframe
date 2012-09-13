@@ -62,6 +62,9 @@ public class DBUtils {
 			if (obj != null) {
 				conn = (Connection) obj;
 			}
+		} else {
+			Record<String, Connection> threadRec = new Record<String, Connection>();
+			Variable.threadMap.put(Thread.currentThread(), threadRec);
 		}
 		return conn;
 	}
@@ -801,8 +804,9 @@ public class DBUtils {
 
 	public static void closeThreadConnection(Connection _conn) {
 		try {
-			if (getThreadConnection() != _conn)
+			if (getThreadConnection() == _conn){
 				closeConnection(_conn);
+			}
 		} catch (Exception localException) {
 		}
 	}

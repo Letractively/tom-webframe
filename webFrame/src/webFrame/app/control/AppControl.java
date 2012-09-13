@@ -25,10 +25,6 @@ public abstract class AppControl<T> implements AppModel<T> {
     }
     
     /*action执行的方法*/
-	public String exec() throws Exception {
-		return null;
-	}
-
 	public String exec(RequestContext resContext) throws Exception {
 		return null;
 	}

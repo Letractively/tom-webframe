@@ -1,13 +1,11 @@
 package webFrame.util;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import aaaa.bean.Info;
 
 
 import webFrame.app.control.RequestContext;
@@ -123,10 +121,10 @@ public class JSONUtil /*extends com.googlecode.jsonplugin.JSONUtil*/ {
 //        System.out.println("list="+list);
         
         
-        List<Info> info1 =  JSONUtil.deserializeBeans(new FileInputStream(new File("d:\\aa.txt")),"UTF-8" ,Info.class);
-        List<Info> info2 =  JSONUtil.deserializeBeans(new File("d:\\aa.txt"),"UTF-8" ,Info.class);
-        System.out.println(info1);
-        System.out.println(info2);
+//        List<Info> info1 =  JSONUtil.deserializeBeans(new FileInputStream(new File("d:\\aa.txt")),"UTF-8" ,Info.class);
+//        List<Info> info2 =  JSONUtil.deserializeBeans(new File("d:\\aa.txt"),"UTF-8" ,Info.class);
+//        System.out.println(info1);
+//        System.out.println(info2);
     	
 //    	Map<String, InputStream> map =  FileUtils.unZipFile(new File("d:\\package.zip"));
 //    	for(String str : map.keySet()){

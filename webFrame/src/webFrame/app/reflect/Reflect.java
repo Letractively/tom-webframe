@@ -40,16 +40,22 @@ public class Reflect {
     /* 得到指定的方法 */
     public Method loadMethod(Class<?> c) throws Exception {
         Method me = null;
-        Method m[] = c.getMethods();
         if (methodName == null) {
-            me = c.getMethod("exec", RequestContext.class, Object.class); // 这个方法不一定需要有
-        }
-
-        for (int i = 0; i < m.length; i++) {
-            /* 如果是公共方法,而且名称相同则返回,如果名称相同参数不同,按先后顺序只执行第一个方法 */// 是否可以判断参数个数相同的执行
-            if (m[i].getModifiers() == Modifier.PUBLIC && m[i].getName().equals(methodName)) {
-                me = m[i];
-                break;
+        	Class<?> _class = null;
+        	try{
+        		_class = (Class<?>) ((ParameterizedType) c.getGenericSuperclass()).getActualTypeArguments()[0];
+        	}catch(Exception e){
+        		_class = Map.class;
+        	}
+        	me = c.getDeclaredMethod("exec", RequestContext.class, _class);
+        }else{
+        	Method m[] = c.getMethods();
+        	for (int i = 0; i < m.length; i++) {
+                /* 如果是公共方法,而且名称相同则返回,如果名称相同参数不同,按先后顺序只执行第一个方法 */// 是否可以判断参数个数相同的执行
+                if (m[i].getModifiers() == Modifier.PUBLIC && m[i].getName().equals(methodName)) {
+                    me = m[i];
+                    break;
+                }
             }
         }
         if (me == null) {
@@ -82,7 +88,7 @@ public class Reflect {
 
     /* 得到指定的annotation数组 */
     private <T> Annotation[] loadAnnotation(T obj) {
-        return ((AnnotatedElement) obj).getDeclaredAnnotations();
+        return ((AnnotatedElement) obj).getAnnotations();
     }
 
     public Object getRuturnType(Method me, AppControl<?> control, Map<String, String> map) throws Exception {
@@ -150,9 +156,6 @@ public class Reflect {
         int arg_l = type.length;
         Object obj = null;
         switch (arg_l) {
-            case 0:
-                obj = me.invoke(control);
-                break;
             case 1:
                 obj = me.invoke(control, requestContext);
                 break;

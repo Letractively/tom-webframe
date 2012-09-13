@@ -1,6 +1,5 @@
 package webFrame.report;
 
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.*;

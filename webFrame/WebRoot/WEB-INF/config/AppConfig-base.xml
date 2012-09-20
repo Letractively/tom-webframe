@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<WebApp>
-	<AppMap>
-		<item queryAction="goLogin" class="aaaa.test.action.LoginControl">登陆</item>
-        <item queryAction="goDemo" class="aaaa.test.action.DemoControl">范例</item>
-        <item queryAction="goFile" class="aaaa.test.action.FileControl">范例</item>
-		<item queryAction="goExport" class="webFrame.report.ExportReport">导出到Excel文件</item>
-	</AppMap>
-</WebApp>

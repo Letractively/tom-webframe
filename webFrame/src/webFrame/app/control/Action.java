@@ -78,7 +78,7 @@ public final class Action extends HttpServlet {
             	app.appEnter(actionInvocation); // 动态代理的参数
             } catch (Exception e) {
                 e.printStackTrace();
-                requestContext.alertMsg("应用程序运行错误!<br>" + AppUtils.autoException(e, ""), "");
+                requestContext.alertMsg("应用程序运行错误!<br>" + AppUtils.autoException(e, className), "window.history.go(-1)");
             }finally{
               	appReal = null;
           		actionInvocation = null;

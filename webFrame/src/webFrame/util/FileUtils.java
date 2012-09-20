@@ -163,7 +163,6 @@ public class FileUtils {
 			if (!formitem.isFormField()) { // 忽略不是上传文件的表单域
 				long size = formitem.getSize();
 				String name = formitem.getName(); // 获取上传文件的名称
-				System.out.println();
 				if (size > _maxSize) { // 如果上传文件大于规定的上传文件的大小
 					map.put("result", "2");
 					list.add(map);

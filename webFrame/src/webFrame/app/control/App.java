@@ -40,16 +40,16 @@ public class App implements webFrame.app.interceptor.App {
 			} else {
 				throw new Exception("App.appEnter: error action suffix,only support .do or .go or .goto");
 			}
-			
-			/* 每次与servlet通信系统都自动记录日志 */
-			StringBuffer msg = new StringBuffer("["+(System.currentTimeMillis()-a)).append("ms]")
-            .append("AUTO(").append(className).append(".")
-			.append(methodName == null ? "exec" : methodName).append(")->IP:")
-			.append(requestContext.getRequest().getRemoteHost());
-			Log.writeLog(msg.toString());
 		} catch (Exception e) {
 			throw e;
 		} finally {
+            /* 每次与servlet通信系统都自动记录日志 */
+			StringBuffer msg = new StringBuffer("["+(System.currentTimeMillis()-a)).append("ms]")
+            .append("WEBFRAME(").append(className).append(".")
+			.append(methodName == null ? "exec" : methodName).append(")->IP:")
+			.append(requestContext.getRequest().getRemoteHost());
+			Log.writeLog(msg.toString());
+            
 			try {
 				DBUtils.closeConnection(DBUtils.getConnection());
                 Variable.threadMap.get(Thread.currentThread()).recMap.clear();

@@ -68,15 +68,6 @@ public final class Log {
 		}
 	}
 
-	public static void writeLog(String _funcName, Exception _e) {
-		String msg = _funcName + ": " + _e.toString();
-		writeLog(msg);
-	}
-
-	public static void printLog(String _msg) {
-		System.out.println(_msg);
-	}
-
 	public static void writeLog_SQL(String _msg) {
 		synchronized (fw_sql) {
 			File f;
@@ -106,5 +97,23 @@ public final class Log {
 				printLog("记录SQL日志文件失败:" + e.getMessage());
 			}
 		}
+	}
+	
+
+	public static void writeLog(String _funcName, Exception _e) {
+		String msg = _funcName + ": " + getCause(_e);
+		writeLog(msg);
+	}
+
+	public static void printLog(String _msg) {
+		System.out.println(_msg);
+	}
+	
+	
+	public static String getCause(Throwable e) {
+		while (e.getCause() != null) {
+			e = e.getCause();
+		}
+		return e.toString();
 	}
 }

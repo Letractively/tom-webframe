@@ -45,7 +45,7 @@ public class Reflect {
         	try{
         		_class = (Class<?>) ((ParameterizedType) c.getGenericSuperclass()).getActualTypeArguments()[0];
         	}catch(Exception e){
-        		_class = Map.class;
+        		_class = Object.class;
         	}
         	me = c.getDeclaredMethod("exec", RequestContext.class, _class);
         }else{

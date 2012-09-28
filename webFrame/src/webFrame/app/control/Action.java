@@ -15,7 +15,7 @@ public final class Action extends HttpServlet {
 
     @Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        String queryAction = req.getRequestURI();
+        String queryAction = req.getServletPath();
         if ((queryAction == null) || (queryAction.length() == 0)) {
             return;
         }

@@ -18,7 +18,7 @@ public class AppUtils {
 				for (int j = 0; j < Variable.exceptionClassPrefix.length; j++) {
 					if (ste[i].getClassName().startsWith(Variable.exceptionClassPrefix[j])) {
 						show = true;
-                        break;
+						break;
 
 					}
 
@@ -28,7 +28,7 @@ public class AppUtils {
 					for (int j = 0; j < Variable.exceptionClassPrefixNo.length; j++) {
 						if (ste[i].getClassName().startsWith(Variable.exceptionClassPrefixNo[j])) {
 							show = false;
-                            break;
+							break;
 						}
 					}
 				}
@@ -41,7 +41,7 @@ public class AppUtils {
 		}
 
 		if (frame == null) {
-			while (_e.getCause() != null) {  //先判断上级原因是否存在,如果不存在直接跳过
+			while (_e.getCause() != null) { // 先判断上级原因是否存在,如果不存在直接跳过
 				StackTraceElement[] ste_cau = _e.getCause().getStackTrace();
 				for (int i = 0; i < ste_cau.length; i++) {
 					boolean show = false;
@@ -54,7 +54,7 @@ public class AppUtils {
 						for (int j = 0; j < Variable.exceptionClassPrefix.length; j++) {
 							if (ste_cau[i].getClassName().startsWith(Variable.exceptionClassPrefix[j])) {
 								show = true;
-                                break;
+								break;
 							}
 						}
 
@@ -62,7 +62,7 @@ public class AppUtils {
 							for (int j = 0; j < Variable.exceptionClassPrefixNo.length; j++) {
 								if (ste_cau[i].getClassName().startsWith(Variable.exceptionClassPrefixNo[j])) {
 									show = false;
-                                    break;
+									break;
 								}
 							}
 						}
@@ -71,11 +71,11 @@ public class AppUtils {
 
 					if (show) {
 						frame = ste_cau[i];
-                        break;
+						break;
 
 					}
 				}
-				_e =  _e.getCause();
+				_e = _e.getCause();
 			}
 		}
 
@@ -87,4 +87,6 @@ public class AppUtils {
 
 		return frame.toString() + ": " + _e.toString();
 	}
+
+
 }

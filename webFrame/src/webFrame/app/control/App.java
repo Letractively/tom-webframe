@@ -34,22 +34,22 @@ public class App implements webFrame.app.interceptor.App {
 				page = (String) reflect.getRuturnType(me, control, map); //得到方法的返回值
 
 				if (page != null && !page.isEmpty()) {
-                    requestContext.setAttribute("params", map);
+                    requestContext.setAttribute("params",map); //重新获取
 					requestContext.gotoPage(page, true);
 				}
 			} else {
 				throw new Exception("App.appEnter: error action suffix,only support .do or .go or .goto");
 			}
-		} catch (Exception e) {
-			throw e;
-		} finally {
-            /* 每次与servlet通信系统都自动记录日志 */
+			
+			/* 每次与servlet通信系统都自动记录日志 */
 			StringBuffer msg = new StringBuffer("["+(System.currentTimeMillis()-a)).append("ms]")
             .append("WEBFRAME(").append(className).append(".")
 			.append(methodName == null ? "exec" : methodName).append(")->IP:")
 			.append(requestContext.getRequest().getRemoteHost());
 			Log.writeLog(msg.toString());
-            
+		} catch (Exception e) {
+			throw e;
+		} finally {
 			try {
 				DBUtils.closeConnection(DBUtils.getConnection());
                 Variable.threadMap.get(Thread.currentThread()).recMap.clear();

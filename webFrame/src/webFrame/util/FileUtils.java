@@ -135,14 +135,14 @@ public class FileUtils {
 	 * @param _req
 	 * @param _upPath
 	 * @param _maxSize
-	 * @param _suffix
+	 * @param _reName
 	 *            后缀
 	 * @param _encoding
 	 *            文件编码
 	 * @return 1--没有文件,2--文件过大,0--上传成功
 	 * @throws Exception
 	 */
-	public static List<Map<String, String>> upload(HttpServletRequest _req, String _upPath, int _maxSize, String _suffix, String _encoding) throws Exception {
+	public static List<Map<String, String>> upload(HttpServletRequest _req, String _upPath, int _maxSize, String _reName, String _encoding) throws Exception {
 		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 		if (!ServletFileUpload.isMultipartContent(_req)) {
 			throw new RuntimeException("not multipart/form-data"); // 判断是否是上传文件
@@ -181,14 +181,13 @@ public class FileUtils {
 				if (!file.exists()) {
 					file.mkdir();
 				}
-
-				String address = _upPath + File.separator + name; // 创建上传文件的保存地址
-				if (!_suffix.isEmpty()) {
-					address += "." + _suffix;
-				}
-
+                String address = "";
+                if(!_reName.isEmpty()){
+                     address = _upPath + File.separator + _reName; // 创建上传文件的保存地址
+                }else{
+                     address = _upPath + File.separator + name;
+                }
 				map.put("filePath", address);
-
 				File saveFile = new File(address); // 根据文件保存地址，创建文件
 				formitem.write(saveFile); // 向文件写数据
 

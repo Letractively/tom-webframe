@@ -1,4 +1,4 @@
-package webFrame.app.db;
+package webFrame.app.db.pro;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -8,6 +8,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+
+import webFrame.app.db.DBUtils;
 
 
 public abstract class ProcedureCallback {

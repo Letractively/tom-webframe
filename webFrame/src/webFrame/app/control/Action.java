@@ -10,9 +10,8 @@ import webFrame.app.interceptor.ProxyHandle;
 import webFrame.app.listener.Variable;
 import webFrame.report.Log;
 
+@SuppressWarnings("serial")
 public final class Action extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-
     @Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String queryAction = req.getServletPath();

@@ -6,9 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.*;
 
 import webFrame.app.bean.*;
+import webFrame.app.db.pro.*;
 import webFrame.app.listener.Variable;
 import webFrame.report.Log;
 
@@ -411,7 +412,7 @@ public class DBUtils {
 				update = update + ", ";
 			}
 			if (obj instanceof String) {
-				update = update + key + " = '" + _map.get(key).toString().replaceAll("'", "''") + "'";
+				update = update + key + " = '" + StringEscapeUtils.escapeSql(_map.get(key).toString()) + "'";
 			}else if(obj instanceof Timestamp){
                 update = update + key + " = '" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(_map.get(key)) + "'";
             }else if (obj instanceof Date) {
@@ -474,7 +475,7 @@ public class DBUtils {
 			}
 			field += key;
 			if (obj instanceof String){
-               value = value + "'" + obj.toString().replaceAll("'", "''") + "'";
+               value = value + "'" + StringEscapeUtils.escapeSql(obj.toString()) + "'";
             }else if(obj instanceof Timestamp){
                 value = value + "'" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(obj) + "'";
             }else if (obj instanceof Date)

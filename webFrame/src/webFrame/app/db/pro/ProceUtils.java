@@ -1,4 +1,4 @@
-package webFrame.app.db;
+package webFrame.app.db.pro;
 
 import java.math.BigDecimal;
 import java.sql.*;

@@ -29,6 +29,7 @@ public final class BeanGet {
 				cpool.importPackage("java.util");
 				cpool.importPackage("java.text");
 				cpool.importPackage("webFrame.app.db");
+                cpool.importPackage("org.apache.commons.lang");
 
 				ClassPath cpath = new ClassClassPath(beanIf);
 				try {
@@ -96,16 +97,16 @@ public final class BeanGet {
 					}
 					sField = sField + fieldName;
 					if (type == String.class) {
-						sUpdate = sUpdate + "\"" + fieldName + " = '\" + " + "target" + ".get" + typeName[0] + typeName[1] + "() + \"'\"";
-						sValue = sValue + "\"'\" + target.get" + typeName[0] + typeName[1] + "() + \"'\"";
+						sUpdate = sUpdate + "\"" + fieldName + " = '\" + " + "StringEscapeUtils.escapeSql(target.get" + typeName[0] + typeName[1] + "()) + \"'\"";
+						sValue = sValue + "\"'\" + StringEscapeUtils.escapeSql(target.get" + typeName[0] + typeName[1] + "()) + \"'\"";
 					} else if(type == Timestamp.class){
-                        sUpdate = sUpdate + "\"" + fieldName + " = '\" + new java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\").format(" + "target" + ".get" + typeName[0] + typeName[1] + "()) + \"'\"";
-						sValue = sValue + "\"'\" + new java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\").format(target.get" + typeName[0] + typeName[1] + "()) + \"'\"";
+                        sUpdate = sUpdate + "\"" + fieldName + " = '\" + new java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\").format(" + "target.get" + typeName[0] + typeName[1] + "()) + \"'\"";
+						sValue = sValue + "\"'\" + new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\").format(target.get" + typeName[0] + typeName[1] + "()) + \"'\"";
                     }else if (type == Date.class) {
-						sUpdate = sUpdate + "\"" + fieldName + " = '\" + new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(" + "target" + ".get" + typeName[0] + typeName[1] + "()) + \"'\"";
-						sValue = sValue + "\"'\" + new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(target.get" + typeName[0] + typeName[1] + "()) + \"'\"";
+						sUpdate = sUpdate + "\"" + fieldName + " = '\" + new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(" + "target.get" + typeName[0] + typeName[1] + "()) + \"'\"";
+						sValue = sValue + "\"'\" + new SimpleDateFormat(\"yyyy-MM-dd\").format(target.get" + typeName[0] + typeName[1] + "()) + \"'\"";
 					} else{
-						sUpdate = sUpdate + "\"" + fieldName + " = \" + " + "target" + ".get" + typeName[0] + typeName[1] + "()";
+						sUpdate = sUpdate + "\"" + fieldName + " = \" + " + "target.get" + typeName[0] + typeName[1] + "()";
 						sValue = sValue + "target.get" + typeName[0] + typeName[1] + "()";
 					}
 

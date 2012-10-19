@@ -130,7 +130,7 @@ public class RequestContext {
         String reString = "";
         try {
             reString = webFrame.util.JSONUtil.serialize(obj);
-            if ("DEBUG".indexOf(Variable.logLevel)!=-1) {
+            if ("DEBUG".equals(Variable.logLevel)) {
 				Log.writeLog_SQL(reString);
 			}
         } catch (Exception e) {

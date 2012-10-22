@@ -12,32 +12,27 @@ public class DBQuery implements Query {
 
 	private StringBuffer sql = new StringBuffer("SELECT * FROM ");
 	
-	private String tableName;
 	
 	private Class<?> _class;
 
 	public DBQuery(String tableOrsql) {
 		if (tableOrsql.toUpperCase().indexOf("SELECT") != -1) {
-			sql = sql.append("(" + tableOrsql + ")t WHERE 1=1");
+			sql = sql.append("(" + tableOrsql + ")tmp ");
 		} else {
-			sql = sql.append(tableOrsql + " t WHERE 1=1");
+			sql = sql.append(tableOrsql + " tmp ");
 		}
 	}
 	
 	public  <T> DBQuery(Class<T> _class) {
 		this._class = _class;
-		tableName = _class.getSimpleName().toLowerCase();
-		sql = sql.append(tableName + " t WHERE 1=1");
+		sql = sql.append(_class.getSimpleName().toLowerCase()+ " tmp ");
 	}
 
 	@Override
 	public String getSql() {
 		return sql.toString();
 	}
-	@Override
-	public String getTableName() {
-		return tableName;
-	}
+	
 	@Override
 	public Class<?> get_class() {
 		return _class;
@@ -194,7 +189,7 @@ public class DBQuery implements Query {
 	
 		Query query = new DBQuery(Fun.class);
 		query
-		.and("id").isNotNull()
+		.where("id").isNotNull()
 		.and("sort").in(1,null)
 		.and("name").ge("panmg")
 		.and("name").gt("tomsun")
@@ -204,7 +199,7 @@ public class DBQuery implements Query {
 		.and("name").notEq("0001")
 		.and("name").not().like("%d%")
 		.and("name").not().between("panmg","tomsun")
-		.and("n").eq("tomsun")
+		.and("name").eq("tomsun")
 		.desc("sort");
 		
 		System.out.println(query.getSql());

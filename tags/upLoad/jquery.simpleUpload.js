@@ -7,12 +7,17 @@
 
 (function($) {
     var fn = $.fn;
-    var uuid = 0;
+    var uuid = (function () {
+        var i = 0;
+        return function() {
+            return ++i;
+        }
+    })();
 
     function handleData(iframe) { //解析返回iframe中的内容
         var data = $(iframe).contents().find('body')[0].innerHTML;
         try {
-            data = window.eval('(' + data + ')');
+            data = eval("(" + data + ")");
         } catch(e) {
             data = {};
             alert("返回JSON字符串有误!");
@@ -24,7 +29,7 @@
     * $(input:file).sUpload()
     */
     fn.sUpload = function(url, callback) {
-        var iframeId = 'simpleUpload' + ++uuid;
+        var iframeId = 'simpleUpload' + uuid();
         var form = this.wrapAll('<form style="margin:0;display:inline" action="'+url+'" method="post" enctype="multipart/form-data" target="' + iframeId + '"/>').parent();
         var iframe = $('<iframe style="position:absolute;top:-9999px" name="' + iframeId + '"/>').appendTo('body');
 
@@ -45,7 +50,7 @@
     /*自动提交方式,用于提交后的预览模式*/
     fn.tUpload = function(option){
         var self = this;
-        var iframeId = 'tomUpload' + ++uuid;
+        var iframeId = 'tomUpload' + uuid();
         var defaults = {
             url: '',
             ext: '',
@@ -56,8 +61,6 @@
         };
         option = $.extend({}, defaults, option);
         return $(this).css({"position":"relative","overflow":"hidden",direction:'ltr'}).append(createInput());
-
-
 
         function createInput(){
             var iframe = $('<iframe style="position:absolute;top:-9999px" name="' + iframeId + '"/>').appendTo('body');
@@ -84,18 +87,17 @@
                 }
                 option.onSend(filename);
 
-                form.submit(function(){
-                    iframe.load(function() {
-                        var data = handleData(this);
-                        option.onComplete(filename,data);
+                iframe.load(function() {
+                    var data = handleData(this);
+                    option.onComplete(filename,data);
 
-                        setTimeout(function() {
-                            iframe.remove();
-                            form.remove();
-                            $(self).tUpload(option); //重新绑定,以解决 IE onchangBug 和form冗余问题
-                        }, 500);
-                    });
-                }).submit();
+                    setTimeout(function() {
+                        iframe.remove();
+                        form.remove();
+                        $(self).tUpload(option); //重新绑定,以解决 IE onchangBug 和form冗余问题
+                    }, 500);
+                });
+                form.submit();
             });
             return inputFile;
         }

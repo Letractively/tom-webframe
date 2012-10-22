@@ -89,7 +89,7 @@ public class VelocityServlet extends HttpServlet {
 		if(propsFile != null){
 			p.load(getServletContext().getResourceAsStream(propsFile));
 		}else{
-			// 获取模板路径的绝对路径
+			// 获取模板路径的绝对路径, 获取velocity默认配置
 			p.load(getClass().getClassLoader().getResourceAsStream(Velocity.DEFAULT_RUNTIME_PROPERTIES));
 			String velocityLoadPath = getServletContext().getRealPath("");
 			// 重新设置模板路径

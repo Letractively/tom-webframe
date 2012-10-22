@@ -42,8 +42,6 @@ public interface Query {
 
 	public abstract String getSql();
 
-	public abstract String getTableName();
-
 	public abstract Class<?> get_class();
 	
 

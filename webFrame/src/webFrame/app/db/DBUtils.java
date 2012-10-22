@@ -292,12 +292,12 @@ public class DBUtils {
 		return list;
 	}
 	
-	/***************************面向对象-->sql的实现**************************************/
+	/***************************面向对象查询的-->sql的实现**************************************/
 	public static List<Object> getBeans(Connection conn, Query query) throws Exception {
 		List<Object> list = new ArrayList<Object>();
 		List<Record<String, Object>> rec = getRecords(conn, query.getSql());
 		for (int i = 0; i < rec.size(); i++) {
-			Object bean = ObjectToBean(rec.get(i), query.getClass());
+			Object bean = ObjectToBean(rec.get(i), query.get_class());
 			list.add(bean);
 		}
 		return list;
@@ -328,12 +328,12 @@ public class DBUtils {
 	}
 	
 	public static Object getBean(Connection conn, Query query) throws Exception {
-		Object bean = ObjectToBean(getRecord(conn,query.getSql()), query.getClass());
+		Object bean = ObjectToBean(getRecord(conn,query.getSql()), query.get_class());
 		return bean;
 	}
 	
 	public static Object getBean(Query query) throws Exception {
-		Object bean = ObjectToBean(getRecord(query.getSql()), query.getClass());
+		Object bean = ObjectToBean(getRecord(query.getSql()), query.get_class());
 		return bean;
 	}
 	

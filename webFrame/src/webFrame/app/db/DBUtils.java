@@ -10,6 +10,7 @@ import org.apache.commons.lang.*;
 
 import webFrame.app.bean.*;
 import webFrame.app.db.pro.*;
+import webFrame.app.db.query.Query;
 import webFrame.app.listener.Variable;
 import webFrame.report.Log;
 
@@ -35,7 +36,6 @@ public class DBUtils {
 			conn = getConnection(Variable.dbpool);
 			setThreadConnection(conn);
 		}
-
 		return conn;
 	}
 
@@ -291,6 +291,64 @@ public class DBUtils {
 		}
 		return list;
 	}
+	
+	/***************************面向对象-->sql的实现**************************************/
+	public static List<Object> getBeans(Connection conn, Query query) throws Exception {
+		List<Object> list = new ArrayList<Object>();
+		List<Record<String, Object>> rec = getRecords(conn, query.getSql());
+		for (int i = 0; i < rec.size(); i++) {
+			Object bean = ObjectToBean(rec.get(i), query.getClass());
+			list.add(bean);
+		}
+		return list;
+	}
+	
+	public static List<Object> getBeans(Query query) throws Exception {
+		Connection con = getConnection();
+		List<Object> list = getBeans(con,query);
+		closeThreadConnection(con);
+		return list;
+	}
+	
+	public static <T> List<T> getBeans(Connection conn, Query query, Class<T> _class) throws Exception {
+		List<T> list = new ArrayList<T>();
+		List<Record<String, Object>> rec = getRecords(conn, query.getSql());
+		for (int i = 0; i < rec.size(); i++) {
+			T bean = ObjectToBean(rec.get(i), _class);
+			list.add(bean);
+		}
+		return list;
+	}
+	
+	public static <T> List<T> getBeans(Query query, Class<T> _class) throws Exception {
+		Connection con = getConnection();
+		List<T> list = getBeans(con,query,_class);
+		closeThreadConnection(con);
+		return list;
+	}
+	
+	public static Object getBean(Connection conn, Query query) throws Exception {
+		Object bean = ObjectToBean(getRecord(conn,query.getSql()), query.getClass());
+		return bean;
+	}
+	
+	public static Object getBean(Query query) throws Exception {
+		Object bean = ObjectToBean(getRecord(query.getSql()), query.getClass());
+		return bean;
+	}
+	
+	public static <T> T getBean(Connection conn, Query query, Class<T> _class) throws Exception {
+		T bean = ObjectToBean(getRecord(conn,query.getSql()), _class);
+		return bean;
+	}
+	
+	public static <T> T getBean(Query query, Class<T> _class) throws Exception {
+		T bean = ObjectToBean(getRecord(query.getSql()), _class);
+		return bean;
+	}
+	
+	
+	
 
 	/********************************* 对象转换成bean(对象支持Record 和 Map) ************************************/
 	@SuppressWarnings("unchecked")
@@ -702,6 +760,8 @@ public class DBUtils {
 		return getListByRS(execPrepSelect(_conn, _sql, _values), _startIndex, _count);
 	}
 
+	
+	
 
 	/***********************存储过程调用 *****************************************/
 	public static ProcedureResult executeProcedure(final String sql, Object... paramArgs) throws Exception {
